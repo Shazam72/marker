@@ -1,0 +1,61 @@
+body {
+  font-size: 100%;
+  overflow-x: hidden;
+  background: url("/img/bulletin.jpg") no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.inner-page {
+  background: #444444be;
+}
+
+.login_form {
+  height: 100vh;
+}
+.login_form form {
+  border-radius: 20px;
+  width: 25rem;
+}
+.login_form form h2 {
+  font-family: "Arial black", Helvetica, sans-serif;
+}
+.login_form form .form-group input {
+  border-radius: 0 !important;
+  border-bottom: 2px solid silver !important;
+}
+.login_form form .form-group .underliner {
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  bottom: 0;
+  background: orange;
+  transform: scale(0);
+  transition: transform 0.5s ease;
+}
+.login_form form .form-group label {
+  color: black;
+  opacity: 0.4;
+  bottom: 0.1rem;
+  left: 0.1rem;
+  pointer-events: none;
+  transition: all 0.4s ease;
+}
+.login_form form .form-group i {
+  position: absolute;
+  right: 10px;
+  bottom: 0.7rem;
+}
+.login_form form .form-group input:focus ~ label,
+.login_form form .form-group input:valid ~ label {
+  bottom: 1.7rem;
+  font-size: smaller;
+  color: orange;
+  opacity: 1;
+}
+.login_form form .form-group input:focus ~ .underliner,
+.login_form form .form-group input:valid ~ .underliner {
+  transform: scale(1);
+}
+
+/*# sourceMappingURL=form.css.map */

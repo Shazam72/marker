@@ -1,0 +1,24 @@
+body {
+  overflow-x: hidden;
+  background: url("/img/bulletin.jpg") no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.inner-page {
+  background: #444444be;
+}
+.inner-page > section:first-of-type {
+  font-size: 2.2em;
+  font-family: "Segoe print", sans-serif;
+  height: 100vh;
+}
+.inner-page > section:first-of-type span:first-of-type {
+  font-size: 1.4em;
+  font-family: "Segoe Print", sans-serif;
+}
+.inner-page header h3 {
+  font-family: "Segoe Print", sans-serif;
+}
+
+/*# sourceMappingURL=home.css.map */
