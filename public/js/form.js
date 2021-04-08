@@ -9,10 +9,9 @@ $("form i").click(function () {
     }
 });
 
-$('form input').keyup(function(){
-    $(this).siblings('.error-msg').text('');
+$("form input").keyup(function () {
+    $(this).siblings(".error-msg").text("");
 });
-
 
 $("form").submit(function (e) {
     e.preventDefault();
@@ -25,6 +24,18 @@ $("form").submit(function (e) {
         .then((resp) => resp.json())
         .then((resp) => {
             console.log(resp.email);
+            if (resp.nom) {
+                $("form .error-msg.nom").html("*" + resp.nom[0]);
+            }
+            if (resp.prenom) {
+                $("form .error-msg.prenom").html("*" + resp.prenom[0]);
+            }
+            if (resp.role) {
+                $("form .error-msg.role").html("*" + resp.role[0]);
+            }
+            if (resp.date) {
+                $("form .error-msg.date").html("*" + resp.date[0]);
+            }
             if (resp.email) {
                 $("form .error-msg.email").html("*" + resp.email[0]);
             }
@@ -32,17 +43,39 @@ $("form").submit(function (e) {
                 $("form .error-msg.password").html("*" + resp.password[0]);
             }
             if (resp.password_confirmation) {
-                $("form .error-msg.password_confirmation").html("*" + resp.password_confirmation[0]);
+                $("form .error-msg.password_confirmation").html(
+                    "*" + resp.password_confirmation[0]
+                );
             }
-            if(resp=='unavalaible'){
+            if (resp == "unavalaible") {
                 swal({
-                    title:'Erreur !!!',
-                    text:'Les identifiants entrés sont incorrects. Veuillez réessayer s\'il-vous-plaît.',
-                    icon:'error',
-                    confirm:true,
-                })
-            } if(resp.links)
-                window.location.href=resp.links
-            
+                    title: "Erreur !!!",
+                    text:
+                        "Les identifiants entrés sont incorrects. Veuillez réessayer s'il-vous-plaît.",
+                    icon: "error",
+                    confirm: true,
+                });
+            }
+            if (resp.msg == "saved") {
+                swal({
+                    title: "Inscription réussie",
+                    text:
+                        "Vos identifiants ont été enregistrées. Vous pouureez vous vous connecter une fois que vous aurez vérifié votre email et reçu l'approbation du Directeur",
+                    icon: "success",
+                    confirm: true,
+                }).then((ok) => {
+                    window.location.href = resp.links;
+                });
+            } else if (resp.msg == "alreadyInDB") {
+                swal({
+                    title: "Compte déja existant",
+                    text:
+                        "Votre compte existe déja. Veuillez vous connecter afin d'y accéder.",
+                    icon: "info",
+                    confirm: true,
+                }).then((ok) => {
+                    window.location.href = resp.links;
+                });
+            }
         });
 });

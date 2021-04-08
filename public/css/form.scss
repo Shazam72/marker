@@ -8,7 +8,9 @@ body {
 .inner-page {
     background: #444444be;
 }
-.login_form {
+.login_form,
+.logup_form,
+.admin_form {
     height: 100vh;
     form {
         border-radius: 20px;
@@ -18,7 +20,7 @@ body {
         }
 
         .form-group {
-            input {
+            input:not([type="date"]) {
                 border-radius: 0 !important;
                 border-bottom: 2px solid silver !important;
             }
@@ -30,7 +32,7 @@ body {
                 bottom: 0;
                 background: orange;
                 transform: scale(0);
-                transition: transform .5s ease;
+                transition: transform 0.5s ease;
             }
             label {
                 color: black;
@@ -40,10 +42,10 @@ body {
                 pointer-events: none;
                 transition: all 0.4s ease;
             }
-            i{
+            i {
                 position: absolute;
                 right: 10px;
-                bottom: .7rem;
+                bottom: 0.7rem;
             }
             input:focus ~ label,
             input:valid ~ label {
@@ -53,9 +55,21 @@ body {
                 opacity: 1;
             }
             input:focus ~ .underliner,
-            input:valid ~ .underliner{
+            input:valid ~ .underliner {
                 transform: scale(1);
             }
         }
+    }
+}
+
+.logup_form {
+    .form-group:nth-of-type(4) label,
+    .form-group:nth-of-type(5) label {
+        opacity: 1;
+    }
+}
+.admin_form {
+    .form-group:nth-of-type(4) label{
+        opacity: 1;
     }
 }

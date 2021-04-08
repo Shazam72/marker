@@ -27,3 +27,33 @@ Route::get('/login',[AccountController::class,'formsHandler'])->name('login');
 Route::post('/login',[AccountController::class,'formsHandler'])->name('login_treat');
 Route::get('/logup',[AccountController::class,'formsHandler'])->name('logup');
 Route::post('/logup',[AccountController::class,'formsHandler'])->name('logup_treat');
+Route::post('/admin',[AccountController::class,'formsHandler'])->name('admin_logup');
+
+// rOUTES NEEDS aUTHENFICATION
+Route::group(['middleware'=>'auth'],function(){
+
+//root's routes
+
+
+
+
+
+//admin's routes
+
+
+
+
+
+//teacher's routes
+
+
+
+
+
+//student's routes
+
+
+
+
+
+});
