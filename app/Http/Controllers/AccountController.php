@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
-extension_loaded('pdo_pgsql');
+namespace App\Http\Controllers;
+
+namespace App\Http\Controllers;
+
+
 
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
@@ -32,37 +37,62 @@ class AccountController extends Controller
         } else if (request()->method() == "POST") {
             if (request()->getRequestUri() == '/login') {
                 $validator = Validator::make(request()->all(), [
-                    'email' => 'email|required',
-                    'password' => 'password|confirmed|min:8|required',
-                    'password_confirmation' => 'password|min:8|required',
+                    'email' => ['required', 'email'],
+                    'password' => ['required', 'confirmed', 'min:8',],
+                    'password_confirmation' => ['required', 'min:8'],
                 ]);
                 if ($validator->fails())
                     return json_encode($validator->errors());
-            } elseif (request()->getRequestUri() == '/logup') {
-                $validator = Validator::make(request()->all(), [
-                    "nom" => 'required',
-                    "prenom" => 'required',
-                    'email' => 'email|required',
-                    'password' => 'password|confirmed|min:8|required',
-                    'password_confirmation' => 'password|min:8|required',
-                    'date' => 'date|required',
-                    'role' => 'required'
-                ]);
-                if ($validator->fails())
-                    return json_encode($validator->errors());
-                else {
-                    
+
+
+                if (request('tel')) {
+                    $login = Auth::attempt([
+                        'tel' => request('tel'),
+                        'password' => request('password')
+                    ]);
+                } else {
+                    $login = Auth::attempt([
+                        'email' => request('email'),
+                        'password' => request('password')
+                    ]);
                 }
+                if ($login) {
+                    return json_encode([
+                        'link' => route(auth()->user()->role->role . '_home'),
+                        'msg' => 'connected'
+                    ]);
+                }
+
+
+                //fonctionalité d'inscription individuelle à gérer plus tard
+
+                // } elseif (request()->getRequestUri() == '/logup') {
+                //     $validator = Validator::make(request()->all(), [
+                //         "nom" => ['required'],
+                //         "prenom" => ['required'],
+                //         'tel' => ['required', 'numeric', 'min:8'],
+                //         'email' => ['required', 'email'],
+                //         'password' => ['required', 'confirmed', 'min:8',],
+                //         'password_confirmation' => ['required', 'min:8'],
+                //         'date' => ['required', 'date'],
+                //         'role' => ['required']
+                //     ]);
+                //     if ($validator->fails())
+                //         return json_encode($validator->errors());
+                //     else {
+                //         $alreadyInDB = User::where('email', null, request('email'), 'or')->where('tel', str_replace(' ', '', request('tel')))->first();
+                //     }
             } elseif (request()->getRequestUri() == '/admin') {
-                if (!$this->existSuperAdmin())
+                if ($this->existSuperAdmin())
                     return 'errors.unauthorized';
                 $validator = Validator::make(request()->all(), [
-                    "nom" => 'required',
-                    "prenom" => 'required',
-                    'email' => 'email|required',
-                    'password' => 'password|confirmed|min:8|required',
-                    'password_confirmation' => 'password|min:8|required',
-                    'date' => 'date|required',
+                    "nom" => ['required'],
+                    "prenom" => ['required'],
+                    'tel' => ['required', 'numeric', 'min:8'],
+                    'email' => ['required', 'email'],
+                    'password' => ["required", 'confirmed', 'min:8',],
+                    'password_confirmation' => ['required', 'min:8'],
+                    'date' => ['required', 'date'],
                 ]);
                 if ($validator->fails())
                     return json_encode($validator->errors());
@@ -72,11 +102,13 @@ class AccountController extends Controller
                         "prenom" =>  request('prenom'),
                         'email' =>  request('email'),
                         'password' =>  bcrypt(request('password')),
-                        'date' =>  request('date'),
+                        'date_naissance' =>  request('date'),
+                        'tel' => str_replace(' ', '', request('tel')),
+                        'role_id' => "1"
                     ]);
                     return json_encode([
-                        "links"=>route('login'),
-                        "msg"=>'saved'
+                        "link" => route('login'),
+                        "msg" => 'saved'
                     ]);
                 }
             }

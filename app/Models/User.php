@@ -13,11 +13,14 @@ class User extends Model implements Authenticatable
     use HasFactory;
     protected $fillable = [
         'role_id',
+        "email",
         "nom",
         "prenom",
         "date_naissance",
-        "mdp",
-        "module"
+        "password",
+        "module_id",
+        'token',
+        'tel'
     ];
 
 

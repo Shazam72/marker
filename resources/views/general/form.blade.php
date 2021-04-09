@@ -102,18 +102,18 @@
         <section class="admin_form d-flex align-items-center justify-content-center">
             <form class="px-3 pt-2 pb-4 bg-white m-auto d-flex justify-content-center align-items-center flex-column" autocomplete="off">
                 @csrf
-                <h2 class="text-center mb-5">Inscription</h2>
+                <h2 class="text-center mb-3">Inscription Administrateur</h2>
                 <div class="form-group my-3 position-relative w-100">
                     <input type="text" name="nom" id="nom" class="h-100 w-100 form-control shadow-none border-0" required>
                     <div class="underliner"></div>
                     <label for="nom" class="fw-bold position-absolute">Nom</label>
-                    <p class="error-msg email fw-bolder text-danger position-absolute" style="font-size: smaller ;bottom:-2rem;"></p>
+                    <p class="error-msg nom fw-bolder text-danger position-absolute" style="font-size: smaller ;bottom:-2rem;"></p>
                 </div>
                 <div class="form-group my-3 position-relative w-100">
                     <input type="text" name="prenom" id="prenom" class="h-100 w-100 form-control shadow-none border-0" required>
                     <div class="underliner"></div>
                     <label for="prenom" class="fw-bold position-absolute">Prénom(s)</label>
-                    <p class="error-msg email fw-bolder text-danger position-absolute" style="font-size: smaller ;bottom:-2rem;"></p>
+                    <p class="error-msg prenom fw-bolder text-danger position-absolute" style="font-size: smaller ;bottom:-2rem;"></p>
                 </div>
                 <div class="form-group my-3 position-relative w-100">
                     <input type="email" id="email" name="email" class="h-100 w-100 form-control shadow-none border-0" required>
@@ -122,9 +122,15 @@
                     <p class="error-msg email fw-bolder text-danger position-absolute" style="font-size: smaller ;bottom:-2rem;"></p>
                 </div>
                 <div class="form-group my-3 position-relative w-100">
+                    <input type="tel" id="tel" name="tel" class="h-100 w-100 form-control shadow-none border-0" required>
+                    <div class="underliner"></div>
+                    <label for="tel" class="fw-bold position-absolute">Numéro de téléphone </label>
+                    <p class="error-msg tel fw-bolder text-danger position-absolute" style="font-size: smaller ;bottom:-2rem;"></p>
+                </div>
+                <div class="form-group my-3 position-relative w-100">
                     <label for="date" class="fw-bolder">Date de naissance : &nbsp;</label>
-                    <input type="date" class="h-100 w-100 form-control shadow-none border-0" required>
-                    <p class="error-msg email fw-bolder text-danger position-absolute" style="font-size: smaller ;bottom:-2rem;"></p>
+                    <input type="date" name="date" id="date" class="h-100 w-100 form-control shadow-none border-0" required>
+                    <p class="error-msg date fw-bolder text-danger position-absolute" style="font-size: smaller ;bottom:-2rem;"></p>
                 </div>
                 <div class="form-group my-3 position-relative w-100">
                     <input type="password" name="password" id="password" class="h-100 w-100 form-control shadow-none border-0" required>

@@ -17,9 +17,12 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('role_id');
             $table->integer('module')->nullable();
+            $table->string('email');
             $table->string('nom');
             $table->string('prenom');
-            $table->string('mdp');
+            $table->string('password');
+            $table->unsignedBigInteger('tel');
+            $table->string('token')->nullable();
             $table->date('date_naissance')->nullable();
             $table->timestamps();
         });

@@ -23,7 +23,6 @@ $("form").submit(function (e) {
     })
         .then((resp) => resp.json())
         .then((resp) => {
-            console.log(resp.email);
             if (resp.nom) {
                 $("form .error-msg.nom").html("*" + resp.nom[0]);
             }
@@ -47,6 +46,9 @@ $("form").submit(function (e) {
                     "*" + resp.password_confirmation[0]
                 );
             }
+            if (resp.tel) {
+                $("form .error-msg.tel").html("*" + resp.tel[0]);
+            }
             if (resp == "unavalaible") {
                 swal({
                     title: "Erreur !!!",
@@ -60,22 +62,25 @@ $("form").submit(function (e) {
                 swal({
                     title: "Inscription réussie",
                     text:
-                        "Vos identifiants ont été enregistrées. Vous pouureez vous vous connecter une fois que vous aurez vérifié votre email et reçu l'approbation du Directeur",
+                        "Vos identifiants ont été enregistrées. Vous pouureez vous vous connecter une fois que vous aurez vérifié votre email",
                     icon: "success",
                     confirm: true,
                 }).then((ok) => {
-                    window.location.href = resp.links;
+                    window.location.href = resp.link;
                 });
-            } else if (resp.msg == "alreadyInDB") {
-                swal({
-                    title: "Compte déja existant",
-                    text:
-                        "Votre compte existe déja. Veuillez vous connecter afin d'y accéder.",
-                    icon: "info",
-                    confirm: true,
-                }).then((ok) => {
-                    window.location.href = resp.links;
-                });
+                // } else if (resp.msg == "alreadyInDB") {
+                //     swal({
+                //         title: "Compte déja existant",
+                //         text:
+                //             "Votre compte existe déja. Veuillez vous connecter afin d'y accéder.",
+                //         icon: "info",
+                //         confirm: true,
+                //     }).then((ok) => {
+                //         window.location.href = resp.links;
+                //     });
+            }
+            if (resp.msg == "connected") {
+                window.location.href = resp.link;
             }
         });
 });
